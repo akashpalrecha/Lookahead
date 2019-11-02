@@ -1,0 +1,11 @@
+Pillow
+fastai
+jedi
+jep
+jupyter
+matplotlib
+numpy
+pandas
+pyspark
+torch
+torchvision

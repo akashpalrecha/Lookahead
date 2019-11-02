@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "nnfl"
+version = "0.1.0"
+description = ""
+authors = ["Akash Palrecha <akashpalrecha@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+numpy = "*"
+pandas = "*"
+jupyter = "*"
+Pillow = "*"
+matplotlib = "*"
+jep = "*"
+jedi = "*"
+pyspark = "*"
+torch = "*"
+torchvision = "*"
+fastai = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
