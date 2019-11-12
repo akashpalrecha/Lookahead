@@ -17,6 +17,7 @@ pyspark = "*"
 torch = "*"
 torchvision = "*"
 fastai = "*"
+streamlit = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
