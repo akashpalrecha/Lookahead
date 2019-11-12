@@ -3,18 +3,19 @@ import torch.nn as nn
 from torch.optim import Optimizer
 import torch.functional as F
 
+
 class LookaheadSGD(Optimizer):
-	"""Implements Lookahead optimizer with SGD
-	
-	Parameters:
-	k : Number of steps to "Look ahead" for the lookahead optimizer
-	alpha : degree of interpolation between slow weights and fast weights for lookahead
-	lr: Learning rate for the SGD Optimizer
-	momentum: Momentum for SGD Optimizer
-	"""
-	def __init__(self, params, lr=required, momentum=0, dampening=0,
-                 weight_decay=0, nesterov=False, k=5, alpha=0.5):
-        if lr is not required and lr < 0.0:
+    """Implements Lookahead optimizer with SGD
+    
+    Parameters:
+    k : Number of steps to "Look ahead" for the lookahead optimizer
+    alpha : degree of interpolation between slow weights and fast weights for lookahead
+    lr: Learning rate for the SGD Optimizer
+    momentum: Momentum for SGD Optimizer
+    """
+    def __init__(self, params, lr=0.001, momentum=0, dampening=0,
+                weight_decay=0, nesterov=False, k=5, alpha=0.5):
+        if lr < 0.0:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if momentum < 0.0:
             raise ValueError("Invalid momentum value: {}".format(momentum))
@@ -27,10 +28,10 @@ class LookaheadSGD(Optimizer):
                         weight_decay=weight_decay, nesterov=nesterov, k=k, alpha=alpha)
         if nesterov and (momentum <= 0 or dampening != 0):
             raise ValueError("Nesterov momentum requires a momentum and zero dampening")
-        super(SGD, self).__init__(params, defaults)
+        super(LookaheadSGD, self).__init__(params, defaults)
 
     def __setstate__(self, state):
-        super(SGD, self).__setstate__(state)
+        super(LookaheadSGD, self).__setstate__(state)
         for group in self.param_groups:
             group.setdefault('nesterov', False)
 
@@ -75,15 +76,15 @@ class LookaheadSGD(Optimizer):
                 # ---- Lookahead Algorithm ----
                 param_state = self.state[p]
                 if 'slow_weight' not in param_state:
-                	param_state['slow_weight'] = p.data.clone().detach()
-                if self.step % k == 0:
-                	p.data = param_state['slow_weight'] + alpha * (p.data - param_state['slow_weight'])
-                	param_state['slow_weight'] = p.data.clone().detach()
+                    param_state['slow_weight'] = p.data.clone().detach()
+                if self.steps % k == 0:
+                    p.data = param_state['slow_weight'] + alpha * (p.data - param_state['slow_weight'])
+                    param_state['slow_weight'] = p.data.clone().detach()
 
         return loss
 
 class LookaheadAdamW(Optimizer):
-	def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-8,
+    def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-8,
                  weight_decay=1e-2, amsgrad=False, k=5, alpha=0.5):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
@@ -96,10 +97,10 @@ class LookaheadAdamW(Optimizer):
         self.steps = 0
         defaults = dict(lr=lr, betas=betas, eps=eps,
                         weight_decay=weight_decay, amsgrad=amsgrad, k=k, alpha=alpha)
-        super(AdamW, self).__init__(params, defaults)
+        super(LookaheadAdamW, self).__init__(params, defaults)
 
     def __setstate__(self, state):
-        super(AdamW, self).__setstate__(state)
+        super(LookaheadAdamW, self).__setstate__(state)
         for group in self.param_groups:
             group.setdefault('amsgrad', False)
 
@@ -116,8 +117,8 @@ class LookaheadAdamW(Optimizer):
             loss = closure()
 
         for group in self.param_groups:
-        	k = group['k']
-        	alpha = group['alpha']
+            k = group['k']
+            alpha = group['alpha']
             for p in group['params']:
                 if p.grad is None:
                     continue
@@ -169,15 +170,15 @@ class LookaheadAdamW(Optimizer):
                 p.data.addcdiv_(-step_size, exp_avg, denom)
                 # ---- Lookahead Algorithm ----
                 if 'slow_weight' not in state:
-                	state['slow_weight'] = p.data.clone().detach()
+                    state['slow_weight'] = p.data.clone().detach()
                 if self.steps % k == 0:
-                	p.data = state['slow_weight'] + alpha * (p.data - state['slow_weight'])
-                	state['slow_weight'] = p.data.clone().detach()
+                    p.data = state['slow_weight'] + alpha * (p.data - state['slow_weight'])
+                    state['slow_weight'] = p.data.clone().detach()
 
         return loss
 
 class LookaheadRMSProp(Optimizer):
-	def __init__(self, params, lr=1e-2, alpha=0.99, eps=1e-8, weight_decay=0, momentum=0, centered=False, k=5, alpha_k=0.5):
+    def __init__(self, params, lr=1e-2, alpha=0.99, eps=1e-8, weight_decay=0, momentum=0, centered=False, k=5, alpha_k=0.5):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= eps:
@@ -190,10 +191,10 @@ class LookaheadRMSProp(Optimizer):
             raise ValueError("Invalid alpha value: {}".format(alpha))
         self.steps = 0
         defaults = dict(lr=lr, momentum=momentum, alpha=alpha, eps=eps, centered=centered, weight_decay=weight_decay, k=k, alpha_k=alpha_k)
-        super(RMSprop, self).__init__(params, defaults)
+        super(LookaheadRMSprop, self).__init__(params, defaults)
 
     def __setstate__(self, state):
-        super(RMSprop, self).__setstate__(state)
+        super(LookaheadRMSprop, self).__setstate__(state)
         for group in self.param_groups:
             group.setdefault('momentum', 0)
             group.setdefault('centered', False)
@@ -211,8 +212,8 @@ class LookaheadRMSProp(Optimizer):
             loss = closure()
 
         for group in self.param_groups:
-        	k = group['k']
-        	alpha_k = group['alpha_k']
+            k = group['k']
+            alpha_k = group['alpha_k']
             for p in group['params']:
                 if p.grad is None:
                     continue
@@ -255,8 +256,8 @@ class LookaheadRMSProp(Optimizer):
                     p.data.addcdiv_(-group['lr'], grad, avg)
                 # ---- Lookahead Algorithm ----
                 if 'slow_weight' not in state:
-                	state['slow_weight'] = p.data.clone().detach()
+                    state['slow_weight'] = p.data.clone().detach()
                 if self.steps % k == 0:
-                	p.data = state['slow_weight'] + alpha_k * (p.data - state['slow_weight'])
-                	state['slow_weight'] = p.data.clone().detach()
+                    p.data = state['slow_weight'] + alpha_k * (p.data - state['slow_weight'])
+                    state['slow_weight'] = p.data.clone().detach()
 
