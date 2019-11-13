@@ -1,0 +1,22 @@
+name: nnfl_project
+channels:
+  - fastai
+  - pytorch
+  - anaconda
+
+dependencies:
+  - python=3.7
+  - numpy
+  - pandas
+  - jupyter
+  - Pillow
+  - matplotlib
+  - jedi
+  - pyspark
+  - pytorch
+  - torchvision
+  - fastai
+  - pip:
+    - streamlit
+    - torchcontrib
+    - wandb
