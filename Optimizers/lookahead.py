@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from torch.optim import Optimizer
 import torch.functional as F
+import math
 
 
 class LookaheadSGD(Optimizer):
@@ -56,6 +57,7 @@ class LookaheadSGD(Optimizer):
             alpha = group['alpha']
 
             for p in group['params']:
+                param_state = self.state[p]
                 if p.grad is None:
                     continue
                 d_p = p.grad.data
@@ -74,7 +76,6 @@ class LookaheadSGD(Optimizer):
 
                 p.data.add_(-group['lr'], d_p)
                 # ---- Lookahead Algorithm ----
-                param_state = self.state[p]
                 if 'slow_weight' not in param_state:
                     param_state['slow_weight'] = p.data.clone().detach()
                 if self.steps % k == 0:
