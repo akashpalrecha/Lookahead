@@ -19,6 +19,7 @@ torchvision = "*"
 fastai = "*"
 streamlit = "*"
 torchcontrib = "^0.0.2"
+wandb = "^0.8.15"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
