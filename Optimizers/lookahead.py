@@ -79,8 +79,9 @@ class LookaheadSGD(Optimizer):
                 if 'slow_weight' not in param_state:
                     param_state['slow_weight'] = p.data.clone().detach()
                 if self.steps % k == 0:
-                    p.data = param_state['slow_weight'] + alpha * (p.data - param_state['slow_weight'])
-                    param_state['slow_weight'] = p.data.clone().detach()
+                    p.data = param_state['slow_weight'] + alpha * (p.data - param_state['slow_weight']) # Performing lookahead upgrade
+                    param_state['slow_weight'] = p.data.clone().detach() # Detaching slow weights from the graph
+                    param_state['momentum_buffer'].fill_(0) # Resetting Momentum
 
         return loss
 
@@ -175,6 +176,8 @@ class LookaheadAdamW(Optimizer):
                 if self.steps % k == 0:
                     p.data = state['slow_weight'] + alpha * (p.data - state['slow_weight'])
                     state['slow_weight'] = p.data.clone().detach()
+                    state['exp_avg'].fill_(0)
+                    state['exp_avg_sq'].fill_(0)
 
         return loss
 
