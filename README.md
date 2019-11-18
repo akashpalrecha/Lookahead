@@ -76,8 +76,6 @@ graph. This can be simply achieved in PyTorch by a statement such as: `x.detach(
 
 [CIFAR10 without State Reset](https://www.notion.so/b94220310a244442be1831c7716f3a71)
 
----
-
 [CIFAR100 without State Reset](https://www.notion.so/7e7a8a55b9c34b4791b76d8945b05894)
 
 [CIFAR10 with State Reset](https://www.notion.so/8587c39665964a91be2cec07539307f5)
