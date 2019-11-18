@@ -1,8 +1,6 @@
 # Lookahead Optimizer Project
 
-[Project Presentation_PDF.pdf](Project_Presentation_PDF-d307225a-ea5f-4dfa-8450-38f8b3cf1be7.pdf)
-
-[akashpalrecha/Lookahead](https://github.com/akashpalrecha/Lookahead)
+[Interactive project report on Notion.so](https://www.notion.so/akashpalrecha/Lookahead-Optimizer-Project-913e45b63e9a4528bee56a588e477f9f)
 
 ---
 
