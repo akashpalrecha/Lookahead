@@ -1,4 +1,5 @@
 # Lookahead Optimizer Project
+[Project Presentation](https://github.com/akashpalrecha/Lookahead/blob/master/Project%20Presentation.pdf)
 
 [Interactive project report on Notion.so](https://www.notion.so/akashpalrecha/Lookahead-Optimizer-Project-913e45b63e9a4528bee56a588e477f9f)
 
@@ -12,9 +13,7 @@ This repository contains code to run experiments which closely simulate those ru
 
 *The results of the project can be interactively viewed at :* 
 
-[https://app.wandb.ai/akashpalrecha/lookahead/reports?view=akashpalrecha%2FReport%202019-11-14T10%3A17%3A00.225Z](https://app.wandb.ai/akashpalrecha/lookahead/reports?view=akashpalrecha%2FReport%202019-11-14T10%3A17%3A00.225Z)
-
----
+[Report on Weights and Biases](https://app.wandb.ai/akashpalrecha/lookahead/reports?view=akashpalrecha%2FReport%202019-11-14T10%3A17%3A00.225Z)
 
 ---
 
@@ -34,6 +33,8 @@ The experiments have been run primarily using the FastAI library.
 ---
 
 ## Conclusions from the experiments:
+
+![Valid Loss for imagenette](/imagenette_valid_loss.png)
 
 - AdamW almost always overfits the data with a very low training loss, high validation loss, and lower accuracy.
 - Lookahead consistently gets the least validation accuracy showing the best generalizability, which is more important than having a lower training loss.
@@ -67,8 +68,6 @@ graph. This can be simply achieved in PyTorch by a statement such as: `x.detach(
     1. The network will still train to an acceptable accuracy even if this weren’t taken care of, but it won’t be as accurate.
     2. This makes it hard to debug this issue, as there are no errors during
     training.
-
----
 
 ---
 
