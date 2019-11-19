@@ -1,11 +1,11 @@
-# Lookahead Optimizer Project
+# Lookahead Optimizer Analysis
 [Project Presentation](https://github.com/akashpalrecha/Lookahead/blob/master/Project%20Presentation.pdf)
 
 [Interactive project report on Notion.so](https://www.notion.so/akashpalrecha/Lookahead-Optimizer-Project-913e45b63e9a4528bee56a588e477f9f)
 
 ---
 
-# Lookahead Optimizer: *K* Steps forward, 1 step back
+### Lookahead Optimizer: *K* Steps forward, 1 step back
 
 [Lookahead Optimizer: k steps forward, 1 step back](https://arxiv.org/abs/1907.08610)
 
