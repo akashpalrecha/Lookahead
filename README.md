@@ -17,8 +17,6 @@ This repository contains code to run experiments which closely simulate those ru
 
 ---
 
-In my analysis, I've found Lookahead to almost always give a higher training loss in comparison to SGD, AdamW, etc. The paper suggests that the training loss for Lookahead should generally be the lowest. For my experiments, the validation loss for Lookahead has been consistently the lowest, and the accuracy has been the highest. This shows that the new optimizer is probably very good at generalization. 
-
 The optimizer has been tested on CIFAR10, CIFAR100, and Imagenette (a smaller subset of the Imagenet dataset created by Jeremy Howard, the founder of Fast.ai)
 
 The experiments have been run primarily using the FastAI library.
