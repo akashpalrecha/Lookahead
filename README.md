@@ -1,7 +1,7 @@
 # Lookahead Optimizer Analysis
 [Project Presentation](https://github.com/akashpalrecha/Lookahead/blob/master/Project%20Presentation.pdf)
 
-**For Students coming from the NNFL course at BITS Pilani, the report below on Notion is representative of what your final github Readme should look like. You can skip the interactive components of Notion that will not be possible on a Github README file. But you should include the tables.** <br>
+**For Students coming from the NNFL course at BITS Pilani, the report below on Notion is representative of what your final github README should look like. You can skip the interactive components of Notion that will not be possible on a Github README file. But you should include the tables.** <br>
 [Interactive project report on Notion.so](https://www.notion.so/akashpalrecha/Lookahead-Optimizer-Project-913e45b63e9a4528bee56a588e477f9f)
 
 
